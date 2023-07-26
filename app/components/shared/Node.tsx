@@ -2,26 +2,27 @@ import { TreeNode } from "@/routes/_index";
 import { FC, useState } from "react";
 import { Block } from "./Block";
 import { ArcherElement } from "react-archer";
+import { useTreeContext } from "./TreeContext";
 
 interface Props {
-  node: TreeNode;
+  nodeId: string;
 }
 
-export const TreeNodeRenderer: FC<Props> = ({ node }) => {
-  const [childrens, setChildrens] = useState<TreeNode[]>(node.children);
+export const TreeNodeRenderer: FC<Props> = ({ nodeId }) => {
+  const { addNode, nodes } = useTreeContext();
+  const node = nodes[nodeId];
+  const childrens = node.childrenIds;
+
   const addChildren = () => {
-    setChildrens((childrens) => [
-      ...childrens,
-      { label: "new child", children: [], id: crypto.randomUUID() },
-    ]);
+    addNode(node.id);
   };
 
   return (
     <div className="block-with-child">
       <ArcherElement
         id={node.id}
-        relations={childrens.map((child) => ({
-          targetId: child.id,
+        relations={childrens.map((childId) => ({
+          targetId: childId,
           targetAnchor: "left",
           sourceAnchor: "right",
         }))}
@@ -31,8 +32,8 @@ export const TreeNodeRenderer: FC<Props> = ({ node }) => {
         </div>
       </ArcherElement>
       <div className="grid">
-        {childrens.map((child) => (
-          <TreeNodeRenderer key={child.id} node={child} />
+        {childrens.map((childId) => (
+          <TreeNodeRenderer key={childId} nodeId={childId} />
         ))}
       </div>
     </div>

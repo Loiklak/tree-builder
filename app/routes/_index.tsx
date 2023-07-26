@@ -3,6 +3,7 @@ import stylesUrl from "@/styles/index.css";
 import { LinksFunction } from "@remix-run/node";
 import { TreeNodeRenderer } from "@/components/shared/Node";
 import { ArcherContainer, ArcherElement } from "react-archer";
+import TreeContextProvider from "@/components/shared/TreeContext";
 
 interface Props {}
 
@@ -16,18 +17,13 @@ export type TreeNode = {
   id: string;
 };
 
-const treeStructureDefault: TreeNode = {
-  id: "totottoo",
-  label: "root",
-  children: [],
-};
-
 const Index: FC<Props> = () => {
-  const [treeStructure, setTreeStructure] = useState(treeStructureDefault);
   return (
-    <ArcherContainer strokeColor="black">
-      <TreeNodeRenderer node={treeStructure} />
-    </ArcherContainer>
+    <TreeContextProvider>
+      <ArcherContainer strokeColor="black">
+        <TreeNodeRenderer nodeId={"root"} />
+      </ArcherContainer>
+    </TreeContextProvider>
   );
 };
 

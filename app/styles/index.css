@@ -6,7 +6,6 @@ body {
   display: grid;
   align-items: center;
   gap: 20px;
-  grid-auto-rows: 1fr;
 }
 
 .block-with-child {

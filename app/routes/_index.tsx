@@ -2,6 +2,7 @@ import { FC, useState } from "react";
 import stylesUrl from "@/styles/index.css";
 import { LinksFunction } from "@remix-run/node";
 import { TreeNodeRenderer } from "@/components/shared/Node";
+import { ArcherContainer, ArcherElement } from "react-archer";
 
 interface Props {}
 
@@ -12,47 +13,22 @@ export const links: LinksFunction = () => [
 export type TreeNode = {
   children: TreeNode[];
   label: string;
+  id: string;
 };
 
 const treeStructureDefault: TreeNode = {
+  id: "totottoo",
   label: "root",
-  children: [
-    {
-      label: "child 1",
-      children: [
-        {
-          label: "child 1.1",
-          children: [
-            {
-              label: "child 1.1.1",
-              children: [],
-            },
-            {
-              label: "child 1.1.2",
-              children: [],
-            },
-            {
-              label: "child 1.1.3",
-              children: [],
-            },
-            {
-              label: "child 1.1.4",
-              children: [],
-            },
-          ],
-        },
-        {
-          label: "child 1.2",
-          children: [],
-        },
-      ],
-    },
-  ],
+  children: [],
 };
 
 const Index: FC<Props> = () => {
   const [treeStructure, setTreeStructure] = useState(treeStructureDefault);
-  return <TreeNodeRenderer node={treeStructure} />;
+  return (
+    <ArcherContainer strokeColor="black">
+      <TreeNodeRenderer node={treeStructure} />
+    </ArcherContainer>
+  );
 };
 
 export default Index;

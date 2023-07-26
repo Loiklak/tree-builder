@@ -1,9 +1,26 @@
 body {
   color: hsl(0, 0%, 100%);
-  background-image: radial-gradient(
-    circle,
-    rgba(152, 11, 238, 1) 0%,
-    rgba(118, 15, 181, 1) 35%,
-    rgba(58, 13, 85, 1) 100%
-  );
+}
+
+.grid {
+  display: grid;
+  align-items: center;
+  gap: 20px;
+  grid-auto-rows: 1fr;
+}
+
+.block-with-child {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 100px;
+}
+
+.block {
+  height: 50px;
+  width: 160px;
+  background-color: red;
+  display: grid;
+  place-items: center;
+  grid-template-columns: 1fr auto;
 }

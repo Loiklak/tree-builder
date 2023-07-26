@@ -1,5 +1,5 @@
 import { LinksFunction } from "@remix-run/node";
-import { Links, LiveReload, Outlet } from "@remix-run/react";
+import { Links, LiveReload, Outlet, Scripts } from "@remix-run/react";
 import globalStylesUrl from "@/styles/global.css";
 
 export const links: LinksFunction = () => [
@@ -18,6 +18,7 @@ export default function App() {
       <body>
         <LiveReload />
         <Outlet />
+        <Scripts />
       </body>
     </html>
   );

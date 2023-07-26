@@ -4,6 +4,7 @@ type NodeInMemory = {
   id: string;
   label: string;
   childrenIds: string[];
+  parentId: string;
 };
 
 type NodesStructure = Record<string, NodeInMemory>;
@@ -15,19 +16,24 @@ interface ITreeContext {
 
 export const treeContext = createContext<ITreeContext>({
   addNode: () => {},
-  nodes: { root: { childrenIds: [], id: "root", label: "Root" } },
+  nodes: {
+    root: { childrenIds: [], id: "root", label: "Root", parentId: "none" },
+  },
 });
 
 export default function TreeContextProvider(props: React.PropsWithChildren) {
   const [nodesStructure, setNodesStructure] = useState<NodesStructure>({
-    root: { childrenIds: [], id: "root", label: "Root" },
+    root: { childrenIds: [], id: "root", label: "Root", parentId: "none" },
   });
+
+  console.log("nodesStructure", nodesStructure);
 
   const addNode = (parentNodeId: string) => {
     const newNode: NodeInMemory = {
       label: "new node",
       id: crypto.randomUUID(),
       childrenIds: [],
+      parentId: parentNodeId,
     };
 
     setNodesStructure((nodesStructure) => {

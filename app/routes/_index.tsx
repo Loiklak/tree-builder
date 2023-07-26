@@ -11,7 +11,7 @@ export const links: LinksFunction = () => [
 const Index: FC<Props> = () => {
   return (
     <div>
-      Coucou à tous je suis la première page
+      <h1>Coucou à tous je suis la première page</h1>
       <span>hola a todos</span>
     </div>
   );

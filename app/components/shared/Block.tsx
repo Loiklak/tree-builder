@@ -23,11 +23,7 @@ export const Block: FC<Props> = ({ onAdd, node: { label, id } }) => {
   };
 
   return (
-    <div
-      className="block"
-      onClick={startEditing}
-      onBlur={() => setIsEditing(false)}
-    >
+    <div className="block" onClick={startEditing} onBlur={stopEditingAndSave}>
       {isEditing ? (
         <form onSubmit={stopEditingAndSave}>
           <input

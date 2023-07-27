@@ -257,7 +257,6 @@ textarea {
   font-size: 1rem;
   font-weight: normal;
   line-height: 1.5;
-  color: var(--color-foreground);
   transition: box-shadow 200ms, border-color 50ms ease-out,
     background-color 50ms ease-out, color 50ms ease-out;
 }
@@ -356,4 +355,10 @@ label > [type="radio"] {
   background-color: hsla(356, 77%, 59%, 0.747);
   border-radius: 0.25rem;
   padding: 0.5rem 1rem;
+}
+
+.reset-button {
+  background-color: transparent;
+  border: none;
+  padding: 0;
 }

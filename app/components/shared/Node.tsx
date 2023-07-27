@@ -28,7 +28,7 @@ export const TreeNodeRenderer: FC<Props> = ({ nodeId }) => {
         }))}
       >
         <div>
-          <Block onAdd={addChildren}>{node.label}</Block>
+          <Block onAdd={addChildren} label={node.label} />
         </div>
       </ArcherElement>
       <div className="grid">

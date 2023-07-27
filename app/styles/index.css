@@ -18,7 +18,7 @@ body {
 .block {
   height: 50px;
   width: 160px;
-  background-color: red;
+  background-color: aliceblue;
   display: grid;
   place-items: center;
   grid-template-columns: 1fr auto;

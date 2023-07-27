@@ -1,30 +1,44 @@
 import { FC, PropsWithChildren, useState } from "react";
+import { NodeInMemory, useTreeContext } from "./TreeContext";
 
 interface Props {
   onAdd: () => void;
-  label: string;
+  node: NodeInMemory;
 }
 
-export const Block: FC<Props> = ({ onAdd, label }) => {
+export const Block: FC<Props> = ({ onAdd, node: { label, id } }) => {
   const [isEditing, setIsEditing] = useState(false);
+  const [value, setValue] = useState(label);
+
+  const { updateNodeLabel } = useTreeContext();
+
+  const startEditing = () => {
+    setIsEditing(true);
+    setValue(label);
+  };
+
+  const stopEditingAndSave = () => {
+    setIsEditing(false);
+    updateNodeLabel(id, value);
+  };
 
   return (
     <div
       className="block"
-      onClick={() => setIsEditing(true)}
+      onClick={startEditing}
       onBlur={() => setIsEditing(false)}
     >
       {isEditing ? (
-        <form onSubmit={() => setIsEditing(false)}>
+        <form onSubmit={stopEditingAndSave}>
           <input
             type="text"
-            value={label}
-            onChange={(e) => (label = e.target.value)}
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
             autoFocus
           />
         </form>
       ) : (
-        <button className="reset-button" onFocus={() => setIsEditing(true)}>
+        <button className="reset-button" onFocus={startEditing}>
           {label}
         </button>
       )}

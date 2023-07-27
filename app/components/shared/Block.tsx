@@ -10,7 +10,7 @@ export const Block: FC<Props> = ({ onAdd, node: { label, id } }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState(label);
 
-  const { updateNodeLabel } = useTreeContext();
+  const { updateNodeLabel, deleteNode } = useTreeContext();
 
   const startEditing = () => {
     setIsEditing(true);
@@ -42,9 +42,14 @@ export const Block: FC<Props> = ({ onAdd, node: { label, id } }) => {
           {label}
         </button>
       )}
-      <button onClick={onAdd} type="button">
-        +
-      </button>
+      <div>
+        <button onClick={onAdd} type="button">
+          +
+        </button>
+        <button onClick={() => deleteNode(id)} type="button">
+          🚮
+        </button>
+      </div>
     </div>
   );
 };

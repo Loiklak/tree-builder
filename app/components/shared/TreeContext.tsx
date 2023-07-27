@@ -13,6 +13,7 @@ interface ITreeContext {
   nodes: NodesStructure;
   addNode: (parentNodeId: string) => void;
   updateNodeLabel(nodeId: string, label: string): void;
+  deleteNode(nodeId: string): void;
 }
 
 export const treeContext = createContext<ITreeContext>({
@@ -21,6 +22,7 @@ export const treeContext = createContext<ITreeContext>({
     root: { childrenIds: [], id: "root", label: "Root", parentId: "none" },
   },
   updateNodeLabel: () => {},
+  deleteNode: () => {},
 });
 
 export default function TreeContextProvider(props: React.PropsWithChildren) {
@@ -66,9 +68,33 @@ export default function TreeContextProvider(props: React.PropsWithChildren) {
     });
   };
 
+  const deleteNodeFromStructure = (
+    nodeId: string,
+    nodeStructure: NodesStructure
+  ) => {
+    nodeStructure[nodeId].childrenIds.forEach((childId) => {
+      deleteNodeFromStructure(childId, nodeStructure);
+    });
+
+    const parentId = nodeStructure[nodeId].parentId;
+    nodeStructure[parentId].childrenIds = nodeStructure[
+      parentId
+    ].childrenIds.filter((childId) => childId !== nodeId);
+
+    delete nodeStructure[nodeId];
+
+    return { ...nodeStructure };
+  };
+
+  const deleteNode = (nodeId: string) => {
+    setNodesStructure((nodesStructure) => {
+      return deleteNodeFromStructure(nodeId, nodesStructure);
+    });
+  };
+
   return (
     <treeContext.Provider
-      value={{ nodes: nodesStructure, addNode, updateNodeLabel }}
+      value={{ nodes: nodesStructure, addNode, updateNodeLabel, deleteNode }}
     >
       {props.children}
     </treeContext.Provider>

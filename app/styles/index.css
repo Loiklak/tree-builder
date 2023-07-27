@@ -16,7 +16,7 @@ body {
 }
 
 .block {
-  height: 80px;
+  min-height: 80px;
   width: 200px;
   background-color: aliceblue;
   display: grid;
